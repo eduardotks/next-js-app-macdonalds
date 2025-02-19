@@ -1,25 +1,43 @@
 # next-js-app-macdonalds
 App MacDonalds para listar, fazer pedidos e colocar no carrinho.
 
-# install prisma
+### install prisma
+
+``` 
 npm install prisma@6.2.1
 npm install @prisma/client@6.2.1
+``` 
 
---somente usar em dev
-npm install -D ts-node@10.9.2  
-# init prisma
+-- somente usar em dev
 
+``` npm install -D ts-node@10.9.2 ```
+
+### init prisma
+
+``` 
 npx prisma init
 npx prisma format
+``` 
 
-# migration
+### migration
 
-npx prisma migrate dev
+``` npx prisma migrate dev```
 
-parar rodar o seed.ts
+-- parar rodar o seed.ts
 
-npx prisma db seed
+``` npx prisma db seed```
 
+### Algumas ferramentas
+
+shadc 
+
+``` npx shadcn@2.3.0 init  ```
+
+``` npx shadcn@2.3.0 add button  ```
+``` npx shadcn@2.3.0 add input  ```
+``` npx shadcn@2.3.0 add card  ```
+
+Tailwind CSS
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
