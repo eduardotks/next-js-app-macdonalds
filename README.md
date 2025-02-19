@@ -5,6 +5,8 @@ App MacDonalds para listar, fazer pedidos e colocar no carrinho.
 npm install prisma@6.2.1
 npm install @prisma/client@6.2.1
 
+--somente usar em dev
+npm install -D ts-node@10.9.2  
 # init prisma
 
 npx prisma init
@@ -13,6 +15,10 @@ npx prisma format
 # migration
 
 npx prisma migrate dev
+
+parar rodar o seed.ts
+
+npx prisma db seed
 
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
