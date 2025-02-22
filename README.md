@@ -41,6 +41,8 @@ shadc
 
 ``` npx shadcn@2.3.0 add scroll-area  ```
 
+``` npx shadcn@2.3.0 add sheet ```
+
 Tailwind CSS
 
 Prettier 
