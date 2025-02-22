@@ -45,9 +45,13 @@ const ProductDetails = ({product}: ProductDetailsProps) => {
         setQuantity((prev) => prev + 1);
     }
 
-    const {toogleCart} = useContext(CartContext);
+    const {toogleCart, addProduct} = useContext(CartContext);
 
     const handleAddToCart = () => {
+        addProduct({
+            ...product,
+            quantity,
+        });
         toogleCart();
     }
 
