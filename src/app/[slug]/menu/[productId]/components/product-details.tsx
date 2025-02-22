@@ -6,6 +6,7 @@ import {useState} from "react";
 
 import {Button} from "@/components/ui/button";
 import {formatCurrency} from "@/helpers/format-currency";
+import {ScrollArea} from "@/components/ui/scroll-area";
 
 
 interface ProductDetailsProps {
@@ -44,9 +45,9 @@ const ProductDetails = ({product}: ProductDetailsProps) => {
 
     return (
         <div>
-            <div className="relative z-50 mt-[-1.5rem] rouded-t-3xl p-5 flex flex-col">
+            <div className="relative z-50 mt-[-1.5rem] rouded-t-3xl p-5 flex flex-col flex-auto overflow-hidden">
 
-                <div className="flex-auto">
+                <div className="flex-auto overflow-hidden ">
                     {/* RESTAURANT */}
                     <div className="flex items-center gap-1.5">
                         <Image src={product.restaurant.avatarImageUrl}
@@ -63,7 +64,7 @@ const ProductDetails = ({product}: ProductDetailsProps) => {
                     </h2>
 
                     {/* PRICE */}
-                    <div className={"flex items-center justify-between"}>
+                    <div className={"flex items-center justify-between mt-3"}>
 
                         <h3 className="text-xl font-semibold">
                             {formatCurrency(product.price)}
@@ -82,26 +83,33 @@ const ProductDetails = ({product}: ProductDetailsProps) => {
                         </div>
 
                     </div>
+                    <ScrollArea className={"h-full "}>
 
-                    {/* DESCRIPTION */}
+                        {/* DESCRIPTION */}
 
-                    <div className={"mt-6 space-y-3"}>
-                        <h4 className={"font-semibold"}>Sobre</h4>
-                        <p className={"text-sm text-muted-foreground"}>
-                            {product.description}
-                        </p>
-                    </div>
-
-                    {/* INGREDIENTS */}
-                    <div className={"mt-6 space-y-3"}>
-                        <div className={"flex items-center gap-1.5"}>
-                            <ChefHatIcon size={18}/>
-                            <h4 className={"font-semibold"}>Ingredientes</h4>
+                        <div className={"mt-6 space-y-3"}>
+                            <h4 className={"font-semibold"}>Sobre</h4>
+                            <p className={"text-sm text-muted-foreground"}>
+                                {product.description}
+                            </p>
                         </div>
-                        <p className={"text-sm text-muted-foreground"}>
-                            {product.description}
-                        </p>
-                    </div>
+
+                        {/* INGREDIENTS */}
+                        <div className={"mt-6 space-y-3"}>
+                            <div className={"flex items-center gap-1.5"}>
+                                <ChefHatIcon size={18}/>
+                                <h4 className={"font-semibold"}>Ingredientes</h4>
+                            </div>
+
+                            <ul className={"list-disc px-5 text-sm text-muted-foreground"}>
+                                {product.ingredients.map(ingredient => (
+                                    <li key={ingredient} className={"text-sm text-muted-foreground"}>
+                                        {ingredient}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </ScrollArea>
                 </div>
 
                 {/* BUTTON */}
