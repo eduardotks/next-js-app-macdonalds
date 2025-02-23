@@ -12,6 +12,7 @@ export interface ICartContext {
     products: CartProduct[];
     toogleCart: () => void;
     addProduct: (product: CartProduct) => void;
+    decreaseProductQuantity: (productId: string) => void;
 
 }
 
@@ -23,46 +24,66 @@ export const CartContext = createContext<ICartContext>(
         },
         addProduct: () => {
         },
+        decreaseProductQuantity: () => {
+        },
     }
 )
 
 export const CartProvider = ({children}: { children: ReactNode }) => {
-    const [products, setProducts] = useState<CartProduct[]>([]);
-    const [isOpen, setIsOpen] = useState<boolean>(false);
+        const [products, setProducts] = useState<CartProduct[]>([]);
+        const [isOpen, setIsOpen] = useState<boolean>(false);
 
 
-    const toogleCart = () => {
-        setIsOpen(prev => !prev)
-    }
-
-    const addProduct = (product: CartProduct) => {
-
-        const productIsAlreadyOnTheCart = products.some(prevProduct => prevProduct.id == product.id)
-        if (!productIsAlreadyOnTheCart) {
-            return setProducts(prev => [...prev, product])
+        const toogleCart = () => {
+            setIsOpen(prev => !prev)
         }
-        setProducts(prevProduct => prevProduct.map(prevProduct => {
-            if (prevProduct.id == product.id) {
-                return {
-                    ...prevProduct,
-                    quantity: prevProduct.quantity + product.quantity
-                }
+
+        const addProduct = (product: CartProduct) => {
+
+            const productIsAlreadyOnTheCart = products.some(prevProduct => prevProduct.id == product.id)
+            if (!productIsAlreadyOnTheCart) {
+                return setProducts(prev => [...prev, product])
             }
-            return prevProduct;
-        }));
+            setProducts(prevProduct => prevProduct.map(prevProduct => {
+                if (prevProduct.id == product.id) {
+                    return {
+                        ...prevProduct,
+                        quantity: prevProduct.quantity + product.quantity
+                    }
+                }
+                return prevProduct;
+            }));
 
+        }
+
+        const decreaseProductQuantity = (productId: string) => {
+            setProducts((prevProducts) => {
+                return prevProducts.map((prevProduct) => {
+                    if (prevProduct.id !== productId) {
+                        return prevProduct;
+                    }
+
+                    if (prevProduct.quantity === 1) {
+                        return prevProduct;
+                    }
+
+                    return {...prevProduct, quantity: prevProduct.quantity - 1};
+                });
+            });
+        };
+
+        return (
+            <CartContext.Provider
+                value={{
+                    isOpen,
+                    products,
+                    toogleCart,
+                    addProduct,
+                    decreaseProductQuantity,
+                }}>
+                {children}
+            </CartContext.Provider>
+        );
     }
-
-    return (
-        <CartContext.Provider
-            value={{
-                isOpen,
-                products,
-                toogleCart,
-                addProduct
-            }}>
-            {children}
-        </CartContext.Provider>
-    );
-};
+;
 
