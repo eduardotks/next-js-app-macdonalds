@@ -1,7 +1,7 @@
 import CpfForm from "@/app/[slug]/orders/components/cpf-form";
+import OrderList from "@/app/[slug]/orders/components/order-list";
 import {isValidCpf, removeCpfPunctuation} from "@/helpers/cpf";
 import {db} from "@/lib/prisma";
-import OrderList from "@/app/[slug]/orders/components/order-list";
 
 
 interface OrdersPageProps {
