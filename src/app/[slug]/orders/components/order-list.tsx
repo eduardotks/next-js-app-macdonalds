@@ -1,3 +1,4 @@
+"use client";
 import {$Enums, Prisma} from "@prisma/client";
 import {ChevronLeftIcon, ScrollTextIcon} from "lucide-react";
 import Image from "next/image";
@@ -7,6 +8,7 @@ import {Card, CardContent} from "@/components/ui/card";
 import {Separator} from "@/components/ui/separator";
 import {formatCurrency} from "@/helpers/format-currency";
 import OrderStatus = $Enums.OrderStatus;
+import {useRouter} from "next/navigation";
 
 interface OrderListProps {
     orders: Prisma.OrderGetPayload<{
@@ -28,21 +30,26 @@ interface OrderListProps {
 }
 
 const getOrderStatusLabel = (status: OrderStatus) => {
-    switch (status) {
-        case OrderStatus.FINISHED:
-            return "Finalizado";
-        case OrderStatus.IN_PREPARATION:
-            return "Em preparo";
-        case OrderStatus.PENDING:
-            return "Pendente";
-
+    if(status === OrderStatus.FINISHED) {
+        return "Finalizado";
     }
+    if(status === OrderStatus.PENDING) {
+        return "Pendente";
+    }
+    if(status === OrderStatus.IN_PREPARATION) {
+        return "Em preparo";
+    }
+    return "";
 }
 
 const OrderList = ({orders}: OrderListProps) => {
+
+    const router = useRouter();
+    const handleBackClick = () => router.back();
+
     return (
         <div className={"space-y-6 p-6"}>
-            <Button size={"icon"} variant={"secondary"} className={"rounded-full"}>
+            <Button size={"icon"} variant={"secondary"} className={"rounded-full"} onClick={handleBackClick}>
                 <ChevronLeftIcon/>
             </Button>
             <div className={"flex items-center gap-3"}>

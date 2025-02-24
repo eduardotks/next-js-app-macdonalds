@@ -1,10 +1,10 @@
 "use server";
 import { ConsumptionMethod } from "@prisma/client";
+import {revalidatePath} from "next/cache";
 import {redirect} from "next/navigation";
 
 import {removeCpfPunctuation} from "@/app/[slug]/menu/helpers/cpf";
 import { db } from "@/lib/prisma";
-import {revalidatePath} from "next/cache";
 
 interface CreateOrderInput {
     customerName: string;
