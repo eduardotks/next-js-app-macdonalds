@@ -81,22 +81,22 @@ export const CartProvider = ({children}: { children: ReactNode }) => {
             });
         };
 
-    const increaseProductQuantity = (productId: string) => {
-        setProducts((prevProducts) => {
-            return prevProducts.map((prevProduct) => {
-                if (prevProduct.id !== productId) {
-                    return prevProduct;
-                }
+        const increaseProductQuantity = (productId: string) => {
+            setProducts((prevProducts) => {
+                return prevProducts.map((prevProduct) => {
+                    if (prevProduct.id !== productId) {
+                        return prevProduct;
+                    }
 
-                return {...prevProduct, quantity: prevProduct.quantity + 1};
+                    return {...prevProduct, quantity: prevProduct.quantity + 1};
+                });
             });
-        });
-    };
+        };
 
-    const removeProduct = (productId: string) => {
-        setProducts(prevProducts => prevProducts.filter(prevProduct => prevProduct.id != productId));
+        const removeProduct = (productId: string) => {
+            setProducts(prevProducts => prevProducts.filter(prevProduct => prevProduct.id != productId));
 
-    }
+        }
 
         return (
             <CartContext.Provider

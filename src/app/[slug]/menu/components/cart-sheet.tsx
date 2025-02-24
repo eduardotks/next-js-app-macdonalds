@@ -11,7 +11,7 @@ import {formatCurrency} from "@/helpers/format-currency";
 
 const CartSheet = () => {
     const {isOpen, toogleCart, products, total} = useContext(CartContext);
-    const [finishOrderdialogIsOpen, setFinishOrderDialogIsOpen] = useState(false);
+    const [finishOrderDialogIsOpen, setFinishOrderDialogIsOpen] = useState(false);
     return (
         <Sheet open={isOpen} onOpenChange={toogleCart}>
             <SheetContent className={"w-[85%]"}>
@@ -32,7 +32,7 @@ const CartSheet = () => {
                         </CardContent>
                     </Card>
                     <Button className={"w-full rounded-full"} onClick={()=> setFinishOrderDialogIsOpen(true)}>Finalizar pedido</Button>
-                    <FinishOrderDialog open={finishOrderdialogIsOpen} onOpenChange={setFinishOrderDialogIsOpen}/>   
+                    <FinishOrderDialog open={finishOrderDialogIsOpen} onOpenChange={setFinishOrderDialogIsOpen}/>
                 </div>
             </SheetContent>
         </Sheet>

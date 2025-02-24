@@ -1,9 +1,15 @@
 "use client"
 import {zodResolver} from "@hookform/resolvers/zod";
+import {ConsumptionMethod} from "@prisma/client";
+import Form from "next/form";
+import {useParams, useSearchParams} from "next/navigation";
+import {useContext, useTransition} from "react";
 import {useForm} from "react-hook-form";
 import {PatternFormat} from "react-number-format";
 import {z} from "zod";
 
+import {createOrder} from "@/app/[slug]/menu/actions/create-order";
+import {CartContext} from "@/app/[slug]/menu/contexts/cart";
 import {Button} from "@/components/ui/button";
 import {
     Drawer,
@@ -15,9 +21,11 @@ import {
     DrawerTitle,
     DrawerTrigger,
 } from "@/components/ui/drawer";
-import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
+import {FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
 import {isValidCpf} from "@/helpers/cpf";
+import {toast} from "sonner";
+import {Loader2Icon} from "lucide-react";
 
 
 const formSchema = z.object({
@@ -33,7 +41,10 @@ interface FinishOrderDialogProps {
 }
 
 const FinishOrderDialog = ({open, onOpenChange}: FinishOrderDialogProps) => {
-
+    const {slug} = useParams<{ slug: string }>();
+    const {products} = useContext(CartContext);
+    const searchParams = useSearchParams()
+    const [isPending, startTransition] = useTransition()
     const form = useForm<FormSchema>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -43,8 +54,25 @@ const FinishOrderDialog = ({open, onOpenChange}: FinishOrderDialogProps) => {
         shouldUnregister: true,
     });
 
-    const onSubmit = (data: FormSchema) => {
-        console.log(data);
+    const onSubmit = async (data: FormSchema) => {
+        try {
+            const consumptionMethod = searchParams.get("consumptionMethod") as ConsumptionMethod;
+            startTransition(async () => {
+                await createOrder({
+                    consumptionMethod,
+                    customerName: data.name,
+                    customerCpf: data.cpf,
+                    products,
+                    slug,
+                });
+                onOpenChange(false);
+                toast.success("Pedido finalizado com sucesso!");
+            });
+
+
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
@@ -57,7 +85,7 @@ const FinishOrderDialog = ({open, onOpenChange}: FinishOrderDialogProps) => {
                 </DrawerHeader>
 
                 <div className={"p-5"}>
-                    <Form {...form}>
+                    <Form action={""} {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                             <FormField
                                 control={form.control}
@@ -90,7 +118,9 @@ const FinishOrderDialog = ({open, onOpenChange}: FinishOrderDialogProps) => {
                             />
                             <DrawerFooter>
                                 <Button type={"submit"} variant={"destructive"}
-                                        className={"rounded-full"}>Finalizar</Button>
+                                        className={"rounded-full"} disabled={isPending}>
+                                    {isPending && <Loader2Icon className={"animate-spin"}/>}
+                                    Finalizar</Button>
                                 <DrawerClose>
                                     <Button variant={"outline"} className={"w-full rounded-full"}>Cancelar</Button>
                                 </DrawerClose>
@@ -98,8 +128,6 @@ const FinishOrderDialog = ({open, onOpenChange}: FinishOrderDialogProps) => {
                         </form>
                     </Form>
                 </div>
-
-
             </DrawerContent>
         </Drawer>
 

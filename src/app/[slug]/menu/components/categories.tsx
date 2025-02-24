@@ -4,9 +4,9 @@ import {ClockIcon} from "lucide-react";
 import Image from "next/image";
 import {useState} from "react";
 
+import Products from "@/app/[slug]/menu/components/products";
 import {Button} from "@/components/ui/button";
 import {ScrollArea, ScrollBar} from "@/components/ui/scroll-area";
-import Products from "@/app/[slug]/menu/components/products";
 
 
 interface RestaurantCategoriesProps {
