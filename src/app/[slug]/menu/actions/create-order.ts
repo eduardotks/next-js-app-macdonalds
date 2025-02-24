@@ -2,7 +2,7 @@
 import { ConsumptionMethod } from "@prisma/client";
 import {redirect} from "next/navigation";
 
-import { removeCpfPunctuation } from "@/helpers/cpf";
+import {removeCpfPunctuation} from "@/app/[slug]/menu/helpers/cpf";
 import { db } from "@/lib/prisma";
 
 interface CreateOrderInput {

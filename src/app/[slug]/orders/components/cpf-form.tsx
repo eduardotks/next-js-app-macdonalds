@@ -5,6 +5,7 @@ import {useForm} from "react-hook-form";
 import {PatternFormat} from "react-number-format";
 import {z} from "zod";
 
+import {isValidCpf, removeCpfPunctuation} from "@/app/[slug]/menu/helpers/cpf";
 import {Button} from "@/components/ui/button";
 import {
     Drawer,
@@ -18,7 +19,6 @@ import {
 } from "@/components/ui/drawer"
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
-import {isValidCpf, removeCpfPunctuation} from "@/helpers/cpf";
 
 
 const formSchema = z.object({

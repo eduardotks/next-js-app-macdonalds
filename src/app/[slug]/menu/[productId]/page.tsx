@@ -5,10 +5,7 @@ import ProductHeader from "@/app/[slug]/menu/[productId]/components/product-head
 import {db} from "@/lib/prisma";
 
 interface ProductPageProps {
-    params: {
-        slug: string;
-        productId: string;
-    }
+    params: Promise<{slug: string, productId: string}>;
 }
 
 const ProductPage = async ({params}: ProductPageProps) => {

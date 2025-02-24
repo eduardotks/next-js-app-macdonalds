@@ -12,6 +12,7 @@ import {z} from "zod";
 
 import {createOrder} from "@/app/[slug]/menu/actions/create-order";
 import {CartContext} from "@/app/[slug]/menu/contexts/cart";
+import {isValidCpf} from "@/app/[slug]/menu/helpers/cpf";
 import {Button} from "@/components/ui/button";
 import {
     Drawer,
@@ -25,7 +26,6 @@ import {
 } from "@/components/ui/drawer";
 import {FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
-import {isValidCpf} from "@/helpers/cpf";
 
 
 const formSchema = z.object({

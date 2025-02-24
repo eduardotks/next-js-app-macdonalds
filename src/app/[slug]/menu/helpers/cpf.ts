@@ -1,4 +1,4 @@
-export const isValidCpf = (cpf: OrdersPageProps): boolean => {
+export const isValidCpf = (cpf: string): boolean => {
     // Remove caracteres não numéricos
     cpf = cpf.replace(/\D/g, "");
 
@@ -42,7 +42,7 @@ export const isValidCpf = (cpf: OrdersPageProps): boolean => {
 };
 
 
-export const removeCpfPunctuation = (cpf: OrdersPageProps) => {
+export const removeCpfPunctuation = (cpf: string) => {
     return cpf.replace(/[.\-]/g, "");
 };
 
